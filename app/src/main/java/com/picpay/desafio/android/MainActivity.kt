@@ -6,8 +6,8 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.picpay.desafio.android.R
 import com.picpay.desafio.android.databinding.ActivityMainBinding
+import com.picpay.desafio.android.ui.userlist.UserListAdapter
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,11 +28,11 @@ class MainActivity : AppCompatActivity() {
                 layoutManager = LinearLayoutManager(this@MainActivity)
             }
         }
-        viewModel.data.observe(this, {
+        viewModel.data.observe(this) {
             usersAdapter.users = it
-        })
+        }
 
-        viewModel.viewModelState.observe(this, { state ->
+        viewModel.viewModelState.observe(this) { state ->
             when (state) {
                 is MainViewModel.MainViewModelState.Loading -> {
                     binding.userListProgressBar.isVisible = state.isLoading
@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity() {
                     binding.userListProgressBar.isVisible = false
                     showErrorMsg()
                 }
-                MainViewModel.MainViewModelState.Sucess -> {
+                MainViewModel.MainViewModelState.Success -> {
                     binding.userListProgressBar.isVisible = false
                 }
             }
-        })
+        }
     }
 
     private fun showErrorMsg(){

@@ -30,7 +30,7 @@ class MainViewModel: ViewModel() {
         }catch (e: Exception){
             updateState(MainViewModelState.Error)
         }finally {
-            updateState(MainViewModelState.Sucess)
+            updateState(MainViewModelState.Success)
         }
     }
 
@@ -43,7 +43,7 @@ class MainViewModel: ViewModel() {
     sealed class MainViewModelState{
         data class Loading(val isLoading: Boolean):MainViewModelState()
         object Error: MainViewModelState()
-        object Sucess: MainViewModelState()
+        object Success: MainViewModelState()
     }
 
 }
