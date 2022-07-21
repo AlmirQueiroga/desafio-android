@@ -14,7 +14,7 @@ import java.lang.Exception
 class MainViewModel: ViewModel() {
 
     private val repository = UserRepository()
-    val data:LiveData<List<User>> get() = repository.users
+    val data:LiveData<List<User>> get() = repository.userData
 
     private val state = MutableLiveData<MainViewModelState>()
     val viewModelState: LiveData<MainViewModelState> get() = state
@@ -25,18 +25,13 @@ class MainViewModel: ViewModel() {
 
     private fun fetchDados() = viewModelScope.launch {
         try {
-            updateState(MainViewModelState.Loading(true))
+            state.postValue(MainViewModelState.Loading(true))
             repository.fetchDados()
+            state.postValue(MainViewModelState.Success)
         }catch (e: Exception){
-            updateState(MainViewModelState.Error)
+            state.postValue(MainViewModelState.Error)
         }finally {
-            updateState(MainViewModelState.Success)
-        }
-    }
-
-    private suspend fun updateState(newState: MainViewModelState){
-        withContext(Dispatchers.Main){
-            state.value = newState
+            state.postValue(MainViewModelState.Loading(false))
         }
     }
 
