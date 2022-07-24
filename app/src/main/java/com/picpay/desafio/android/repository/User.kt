@@ -1,4 +1,4 @@
-package com.picpay.desafio.android.models
+package com.picpay.desafio.android.repository
 
 import android.os.Parcelable
 import androidx.room.Entity
