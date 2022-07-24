@@ -8,9 +8,8 @@ class ExampleService(
 ) {
 
     suspend fun example(): List<User> {
-        //val users = service.getUsers().
+        val users = service.getUsers()
 
-        //return users.body() ?: emptyList()
-        return emptyList()
+        return users
     }
 }
